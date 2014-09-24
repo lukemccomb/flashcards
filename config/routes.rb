@@ -1,10 +1,10 @@
 Rails.application.routes.draw do
+  resources :sessions, only: [:new, :create, :destroy]
 
-  get "/decks" => "decks#index"
-  get "/decks/new" => "decks#new"
-  get "decks/:id" => "decks#show", as: :deck
-  post "/decks" => "decks#create"
-  get "/decks/:id/edit" => "decks#edit"
-  patch "decks/:id" => "decks#update"
-  delete "decks/:id" => "decks#destroy"
+  resources :users, only: [:new, :create]
+
+  resources :decks do
+    resources :cards, except: :index
+  end
+
 end
