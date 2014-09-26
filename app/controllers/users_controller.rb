@@ -6,6 +6,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new(allowed_params)
     @user.save
+    sign_in @user
     redirect_to decks_path
   end
 

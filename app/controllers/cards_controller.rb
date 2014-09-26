@@ -1,5 +1,7 @@
 class CardsController < ApplicationController
 
+  before_filter :authenticate
+
   def show
     @deck = find_deck
     @card = @deck.cards.find(params[:id])
@@ -39,7 +41,7 @@ class CardsController < ApplicationController
   private
 
   def find_deck
-    Deck.find(params[:deck_id])
+    current_user.decks.find(params[:deck_id])
   end
 
   def find_card deck

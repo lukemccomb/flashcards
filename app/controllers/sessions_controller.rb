@@ -5,11 +5,20 @@ class SessionsController < ApplicationController
   end
 
   def create
-
+    user = User.find_by(allowed_params)
+    sign_in(user)
+    redirect_to decks_path
   end
 
   def destroy
+    cookies.delete(:user_id)
+    redirect_to root_path
+  end
 
+  private
+
+  def allowed_params
+    params.require(:session).permit(:email)
   end
 
 end
